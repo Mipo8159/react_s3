@@ -8,10 +8,6 @@ const FileSchema = new mongoose.Schema<FileType>(
       unique: true,
       required: true,
     },
-    imgUrl: {
-      type: String,
-      unique: true,
-    },
   },
   {timestamps: true}
 )

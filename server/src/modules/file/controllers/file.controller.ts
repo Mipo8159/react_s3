@@ -29,44 +29,13 @@ export class FileController {
     }
   }
 
-  // GET FILE
-  async getFile(req: Request, res: Response, next: NextFunction) {
-    try {
-      const {id} = req.params
-      const result = await this.fileService.getFile(id)
-      return this.httpResponse.Ok(res, {file: result})
-    } catch (error) {
-      return next(error)
-    }
-  }
-
-  // UPLOAD FILE S3
-  async uploadS3(req: Request, res: Response, next: NextFunction) {
-    try {
-      const files = req.files as any
-      const result = await this.fileService.uploadS3(files)
-      return this.httpResponse.Created(res, {files: result})
-    } catch (error) {
-      return next(error)
-    }
-  }
-
-  // REMOVE FILE S3
-  async removeS3(req: Request, res: Response, next: NextFunction) {
-    try {
-      const {id} = req.params
-      const result = await this.fileService.removeFile(id)
-      return this.httpResponse.Ok(res, {removed: result})
-    } catch (error) {
-      return next(error)
-    }
-  }
-
-  async getS3(req: Request, res: Response, next: NextFunction) {
+  // CREATE FILE
+  async createFile(req: Request, res: Response, next: NextFunction) {
     try {
       const {key} = req.body
-      const result = await this.fileService.getS3(key)
-      return this.httpResponse.Ok(res, {s3: result})
+      console.log(key)
+      const result = await this.fileService.createFile(key)
+      return this.httpResponse.Ok(res, {file: result})
     } catch (error) {
       return next(error)
     }

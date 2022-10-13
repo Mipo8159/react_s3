@@ -1,7 +1,5 @@
-import {ApiError} from '../../../common/errors/apiError'
 import {EnvConfig} from '../../../config/env.config'
 import FileModel from '../models/file.model'
-import {FileType} from '../types/file.types'
 import {FilePaginationType} from '../types/filePagination.type'
 import {AwsService} from './aws.service'
 
@@ -34,23 +32,8 @@ export class FileService extends EnvConfig {
     return await this.awsService.signedUrl()
   }
 
-  // GET FILE (STORAGE)
-  async getFile(id: string): Promise<FileType> {
-    return 123 as any
-  }
-
-  // GET FILE (S3)
-  async getS3(key: string): Promise<string> {
-    return 123 as any
-  }
-
-  // UPLOAD FILE (S3)
-  async uploadS3(files: Express.Multer.File[]): Promise<FileType[]> {
-    return 123 as any
-  }
-
-  // REMOVE (S3)
-  async removeFile(id: string): Promise<boolean> {
-    return 123 as any
+  // CREATE FILE
+  async createFile(key: string) {
+    return await FileModel.create({key})
   }
 }

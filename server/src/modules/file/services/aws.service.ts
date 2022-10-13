@@ -14,11 +14,11 @@ export class AwsService extends EnvConfig {
 
   async signedUrl() {
     try {
-      const key = v4() + 'jpg'
+      const key = v4() + '.png'
       const url = await this.s3.getSignedUrl('putObject', {
         Bucket: this.getEnv('AWS_BUCKET'),
         Key: key,
-        ContentType: 'image/jpeg',
+        ContentType: 'image/png',
       })
       return {key, url}
     } catch (err) {
