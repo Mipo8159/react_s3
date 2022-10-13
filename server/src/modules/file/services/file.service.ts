@@ -29,6 +29,11 @@ export class FileService extends EnvConfig {
     }
   }
 
+  // SIGNED URL
+  async getSigniture() {
+    return await this.awsService.signedUrl()
+  }
+
   // GET FILE (STORAGE)
   async getFile(id: string): Promise<FileType> {
     return 123 as any

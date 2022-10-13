@@ -12,18 +12,17 @@ export class AwsService extends EnvConfig {
     region: this.getEnv('AWS_REGION'),
   })
 
-  signedUrl(file: Express.Multer.File) {
-    this.s3.getSignedUrl(
-      'putObject',
-      {
+  async signedUrl() {
+    try {
+      const key = v4() + 'jpg'
+      const url = await this.s3.getSignedUrl('putObject', {
         Bucket: this.getEnv('AWS_BUCKET'),
-        Key: v4() + file.originalname,
-        ContentType: file.mimetype,
-      },
-      (err, url) => {
-        if (err) throw ApiError.BadRequest(err.message)
-        return url
-      }
-    )
+        Key: key,
+        ContentType: 'image/jpeg',
+      })
+      return {key, url}
+    } catch (err) {
+      throw ApiError.BadRequest(err.message)
+    }
   }
 }

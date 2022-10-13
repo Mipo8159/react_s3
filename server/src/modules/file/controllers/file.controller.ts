@@ -7,6 +7,17 @@ export class FileController {
     private readonly httpResponse: HttpResponse = new HttpResponse(),
     private readonly fileService: FileService = new FileService()
   ) {}
+
+  // SIGNED URL
+  async getSigniture(_: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await this.fileService.getSigniture()
+      return this.httpResponse.Ok(res, {signature: result})
+    } catch (error) {
+      return next(error)
+    }
+  }
+
   // GET FILES
   async getFiles(req: Request, res: Response, next: NextFunction) {
     try {
